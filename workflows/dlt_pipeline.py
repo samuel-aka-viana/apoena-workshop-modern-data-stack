@@ -1,11 +1,16 @@
 import logging
+import sys
 from datetime import datetime
+from pathlib import Path
+
 from prefect import flow, task
 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+project_root = Path(__file__).parent.parent
+sys.path.append(str(project_root))
 
 @task(name="run-death-metal-pipeline")
 def run_death_metal_pipeline():

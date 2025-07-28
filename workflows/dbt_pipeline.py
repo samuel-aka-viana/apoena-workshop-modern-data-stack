@@ -1,7 +1,11 @@
+import sys
+
 from prefect import flow, task
 from prefect_dbt import DbtCoreOperation
 from pathlib import Path
 
+project_root = Path(__file__).parent.parent
+sys.path.append(str(project_root))
 
 @task
 def validate_dbt_setup():
