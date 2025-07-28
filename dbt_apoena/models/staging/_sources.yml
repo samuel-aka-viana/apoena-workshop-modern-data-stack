@@ -1,0 +1,13 @@
+version:
+
+sources:
+  - name: metal_data
+    description: "Dados de bandas de death metal"
+    schema: ""
+    tables:
+      - name: metal_bands
+        description: "Bandas de metal do kaggle"
+      - name: metal_albums
+        description: "Albums das bandas"
+      - name: metal_reviews
+        description: "Review de albums das bandas"

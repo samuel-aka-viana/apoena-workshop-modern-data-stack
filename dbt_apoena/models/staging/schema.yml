@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: stg_metal_bands
+    description: "Modelo de bandas de metal"
+    columns:
+      - name: band_id
+        description: "Id da banda"
+        tests:
+          - not_null
+      - name: band_name
+        description: "Nome da banda"
+      - name: country
+        description: "Onde nasceu a banda"
+      - name: formed_year
+        description: "Data de formação"
+
+  - name: stg_metal_albums
+    description: "Modelo de albums de metal"
+    columns:
+      - name: album_id
+        description: "Id do album"
+      - name: band_id
+        description: "Id da banda no album"
+        tests:
+          - relationships:
+              to: ref('stg_metal_albums')
+              field: band_id
+      - name: album_title
+        description: "Titulo do album"
+      - name: album_year
+        description: "O ano emq ue o album foi lançado"
+
+  - name: stg_metal_reviews
+    description: "Review dos albums"
+    columns:
+      - name: review_id
+        description: "Id do review"
+      - name: album_id
+        description: "Id do album"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_metal_albums')
+              field: album_id
+      - name: review_title
+        description: "titulo do review"
+      - name: score_album
+        description: "nota do album"
+      - name: content_review
+        description: "Conteudo do review"
