@@ -2,3 +2,4 @@
 .idea
 .dlt/secrets.toml
 logs/
+*.duckdb
