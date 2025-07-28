@@ -1,0 +1,20 @@
+dbt_apoena:
+  outputs:
+    dev:
+      type: duckdb
+      path: ../death_metal.duckdb
+      schema: metal_data
+      threads: 1
+
+    prod:
+      type: bigquery
+      method: <>
+      project: <project_id>
+      dataset: <dataset_name>
+      threads: 8
+      timeout_seconds: 600
+      location: <locatino>
+      priority: batch
+      keyfile: <your-keyfile>.json
+
+  target: dev
