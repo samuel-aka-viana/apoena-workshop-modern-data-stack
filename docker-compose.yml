@@ -1,0 +1,45 @@
+services:
+  superset:
+    image: apache/superset:latest
+    container_name: superset_duckdb
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./death_metal.duckdb:/data/death_metal.duckdb
+      - superset_data:/app/superset_home
+    environment:
+      - SUPERSET_SECRET_KEY=death-metal-analytics-2024
+    command: >
+      sh -c "
+        pip install duckdb-engine &&
+        superset fab create-admin --username admin --firstname Admin --lastname User --email admin@superset.com --password admin &&
+        superset db upgrade &&
+        superset init &&
+        superset run -h 0.0.0.0 -p 8089 --with-threads --reload
+      "
+    restart: unless-stopped
+
+
+  jupyter:
+    image: jupyter/datascience-notebook:latest
+    container_name: jupyter_death_metal
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./death_metal.duckdb:/home/jovyan/death_metal.duckdb
+      - jupyter_notebooks:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=death-metal-jupyter-2024
+    command: >
+      bash -c "
+        pip install duckdb boto3 minio &&
+        start-notebook.sh --NotebookApp.token='death-metal-jupyter-2024' --NotebookApp.password='death-metal' --NotebookApp.disable_check_xsrf=True
+      "
+    restart: unless-stopped
+    user: root
+    working_dir: /home/jovyan
+
+volumes:
+  superset_data:
+  jupyter_notebooks:
