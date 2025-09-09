@@ -1,7 +1,3 @@
-Claro! Com base na estrutura que você compartilhou, aqui está um exemplo de `README.md` para o repositório `apoena-workshop-modern-data-stack`:
-
----
-
 ````markdown
 # Apoena Workshop: Modern Data Stack
 
